@@ -55,9 +55,9 @@ enum Operators {
 }
 
 public class Operator implements Node {
-    private Node leftNode;
-    private Node rightNode;
-    private Operators operator;
+    private final Node leftNode;
+    private final Node rightNode;
+    private final Operators operator;
 
     Operator(Node leftNode, Node rightNode, Operators operator) {
         this.leftNode = leftNode;
@@ -76,6 +76,7 @@ public class Operator implements Node {
     Operator(Node leftNode, double rightValue, Operators operator) {
         this(leftNode, new Value(rightValue), operator);
     }
+
 
     @Override
     public double getValue() {

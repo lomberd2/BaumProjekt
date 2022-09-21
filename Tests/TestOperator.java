@@ -67,4 +67,21 @@ public class TestOperator {
         String nestedOperatorsResult = new Operator(operator1, operator2, Operators.MULTIPLY).toString();
         assertEquals("((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)*", nestedOperatorsResult);
     }
+
+    @Test
+    void TestStringParserEasy() {
+        String operatorParseString = "((10.0,5.0)/,(40.0,10.0)+)/";
+        Operator parsedOperator = (Operator) StringToNodeParser.getOperatorFromString(operatorParseString);
+        assertEquals(operatorParseString, parsedOperator.toString());
+        assertEquals(0.04, parsedOperator.getValue());
+    }
+
+    @Test
+    void TestStringParserHard() {
+        // ((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)* ==> (25.0, 25.0)+ == 50.0
+        String operatorParseString = "(((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)*,25.0)+";
+        Operator parsedOperator = (Operator) StringToNodeParser.getOperatorFromString(operatorParseString);
+        assertEquals(operatorParseString, parsedOperator.toString());
+        assertEquals(50.0, parsedOperator.getValue());
+    }
 }
