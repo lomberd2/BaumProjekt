@@ -121,8 +121,10 @@ public class TermParser {
 
             char curChar;
             if (charArr.get(i).length() <= 1) {
+                //Nur ein Char
                 curChar = charArr.get(i).charAt(0);
             } else {
+                //Komma Zahl
                 nodeStack.push(new StringValue(charArr.get(i)));
                 continue;
             }
