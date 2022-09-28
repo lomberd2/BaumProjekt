@@ -95,9 +95,17 @@ public class TestOperator {
         String parsingString2 = "1+2-3*4+5^6^7*8-9";
         String parsingString3 = "(3.31 + 4)*(15.5547 - 6)";
 
-        parsingString = TermParser.parse(parsingString);
-        parsingString2 = TermParser.parse(parsingString2);
-        parsingString3 = TermParser.parse(parsingString3);
+        Node parsedNode = TermParser.parse(parsingString);
+        Node parsedNode2 = TermParser.parse(parsingString2);
+        Node parsedNode3 = TermParser.parse(parsingString3);
+
+        assertEquals("((((1.0,2.0)+,(3.0,4.0)*)-,((5.0,7.0)^,8.0)*)+,9.0)-", parsedNode.toString());
+        assertEquals("((((1.0,2.0)+,(3.0,4.0)*)-,((5.0,(6.0,7.0)^)^,8.0)*)+,9.0)-", parsedNode2.toString());
+        assertEquals("((3.31,4.0)+,(15.5547,6.0)-)*", parsedNode3.toString());
+
+        parsingString = TermParser.parseToString(parsingString);
+        parsingString2 = TermParser.parseToString(parsingString2);
+        parsingString3 = TermParser.parseToString(parsingString3);
 
         assertEquals("((((1,2)+,(3,4)*)-,((5,7)^,8)*)+,9)-", parsingString);
         assertEquals("((((1,2)+,(3,4)*)-,((5,(6,7)^)^,8)*)+,9)-", parsingString2);

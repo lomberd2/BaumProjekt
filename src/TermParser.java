@@ -6,7 +6,11 @@ import java.util.Stack;
 
 public class TermParser {
 
-    public static String parse(String infixNotation) throws Exception {
+    public static Node parse(String infixNotation) throws Exception {
+        return StringToNodeParser.getOperatorFromString(parseToString(infixNotation));
+    }
+
+    public static String parseToString(String infixNotation) throws Exception {
         List<String> outputStack = new LinkedList<>();
         Stack<Character> operatorsStack = new Stack<>();
         char lastChar = infixNotation.charAt(0);
