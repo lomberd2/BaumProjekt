@@ -15,17 +15,15 @@ public class TermParser {
         Stack<Character> operatorsStack = new Stack<>();
         char lastChar = infixNotation.charAt(0);
 
+        //Change , to .
+        infixNotation = infixNotation.replace(",", ".");
+
         for (int i = 0; i < infixNotation.length(); i++) {
             char currentChar = infixNotation.charAt(i);
 
             //Ignore Chars
             if (currentChar == '\n' || currentChar == '\t' || currentChar == '\r' || currentChar == ' ') {
                 continue;
-            }
-
-            //Change , to .
-            if(currentChar == ',') {
-                currentChar = '.';
             }
 
             if (checkIsLegalChar(currentChar)) {
