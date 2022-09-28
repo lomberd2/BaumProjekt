@@ -118,5 +118,7 @@ public class TestOperator {
         Node parsedNode = TermParser.parse(parsingString);
         parsingString = TermParser.parseToString(parsingString);
         System.out.println(parsingString);
+        System.out.println(parsedNode.toString());
+        System.out.println(parsedNode.getValue());
     }
 }
