@@ -111,4 +111,12 @@ public class TestOperator {
         assertEquals("((((1,2)+,(3,4)*)-,((5,(6,7)^)^,8)*)+,9)-", parsingString2);
         assertEquals("((3.31,4)+,(15.5547,6)-)*", parsingString3);
     }
+
+    @Test
+    void NewParserSecondTest() throws Exception {
+        String parsingString ="154 + 21 - 31.243 / 80.21";
+        Node parsedNode = TermParser.parse(parsingString);
+        parsingString = TermParser.parseToString(parsingString);
+        System.out.println(parsingString);
+    }
 }

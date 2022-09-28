@@ -23,6 +23,11 @@ public class TermParser {
                 continue;
             }
 
+            //Change , to .
+            if(currentChar == ',') {
+                currentChar = '.';
+            }
+
             if (checkIsLegalChar(currentChar)) {
                 //Nicht Erste Ziffer
                 if (i != 0) {
@@ -69,7 +74,17 @@ public class TermParser {
 
                 // Wenn Nummer
                 if (checkIsNumber(currentChar)) {
-                    outputStack.add(String.valueOf(currentChar));
+                    int j = i + 1;
+                    String number = String.valueOf(currentChar);
+                    while (j >= 0 && j < infixNotation.length() && (checkIsNumber(infixNotation.charAt(j)) || infixNotation.charAt(j) == '.')) {
+                        currentChar = infixNotation.charAt(j);
+                        number += currentChar;
+                        j++;
+                    }
+                    outputStack.add(number);
+                    i = j - 1;
+                    lastChar = currentChar;
+                    continue;
                 }
 
                 //Argumenttrennzeichen
