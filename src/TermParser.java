@@ -132,7 +132,7 @@ public class TermParser {
     /**
      * Parse RPN to String with Braces
      */
-    private static String stackToString(List<String> charArr) {
+    private static String stackToString(List<String> charArr) throws Exception {
         Stack<StringNode> nodeStack = new Stack<>();
         for (int i = 0; i < charArr.size(); i++) {
 
@@ -142,7 +142,12 @@ public class TermParser {
                 curChar = charArr.get(i).charAt(0);
             } else {
                 //Komma Zahl
-                nodeStack.push(new StringValue(charArr.get(i)));
+                String kommaZahl = charArr.get(i);
+                int kommaAnzahl = (int) kommaZahl.chars().filter((x) -> x == '.' ).count();
+                if ( kommaAnzahl > 1 ) {
+                    throw new Exception("Mehr als ein Komma in einer Zahl enthalten");
+                }
+                nodeStack.push(new StringValue(kommaZahl));
                 continue;
             }
 

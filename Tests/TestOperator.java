@@ -114,7 +114,7 @@ public class TestOperator {
 
     @Test
     void NewParserSecondTest() throws Exception {
-        String parsingString ="154 + 21 - 31.243 / 80,21";
+        String parsingString =".154 + 21 - 31.243 / 80,21";
         Node parsedNode = TermParser.parse(parsingString);
         parsingString = TermParser.parseToString(parsingString);
         System.out.println(parsingString);
