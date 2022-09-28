@@ -1,9 +1,11 @@
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.*;
 
 public class StringToNodeParser {
     private static Map<String, String> objToStringMap = new HashMap<>();
 
-    public static Node getOperatorFromString(String inputString) {
+    public static Node getOperatorFromString(String inputString) throws ExecutionControl.NotImplementedException {
         SortedSet<Integer> tempBraces = new TreeSet<>();
         ArrayList<String> splittetBraces = new ArrayList<>();
         Map<String, String> merkMap = new HashMap<>();
@@ -336,7 +338,7 @@ public class StringToNodeParser {
         return getNodeFromString(splittetInput[splittetInput.length-1]);
     }
 
-    private static Node getNodeFromString(String nodeString) {
+    private static Node getNodeFromString(String nodeString) throws ExecutionControl.NotImplementedException {
         int nodeStringKommaIndex = nodeString.indexOf(",");
         int nodeStringEndIndex = nodeString.indexOf(")");
         String leftNodeString = nodeString.substring(1, nodeStringKommaIndex);
@@ -383,14 +385,14 @@ public class StringToNodeParser {
         return returnOperator;
     }
 
-    private static Operators getOperatorsFromString(String operator) {
+    public static Operators getOperatorsFromString(String operator) throws ExecutionControl.NotImplementedException {
         return switch (operator) {
             case "+" -> Operators.ADD;
             case "-" -> Operators.SUBTRACT;
             case "^" -> Operators.POWER;
             case "*" -> Operators.MULTIPLY;
             case "/" -> Operators.DIVIDE;
-            default -> null;
+            default -> throw new ExecutionControl.NotImplementedException("Operator not implemented");
         };
     }
 }

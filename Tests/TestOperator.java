@@ -1,3 +1,4 @@
+import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,7 +70,7 @@ public class TestOperator {
     }
 
     @Test
-    void TestStringParserEasy() {
+    void TestStringParserEasy() throws ExecutionControl.NotImplementedException {
         String operatorParseString = "((10.0,5.0)/,(40.0,10.0)+)/";
         Operator parsedOperator = (Operator) StringToNodeParser.getOperatorFromString(operatorParseString);
         assertEquals(operatorParseString, parsedOperator.toString());
@@ -77,11 +78,29 @@ public class TestOperator {
     }
 
     @Test
-    void TestStringParserHard() {
+    void TestStringParserHard() throws ExecutionControl.NotImplementedException {
         // ((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)* ==> (25.0, 25.0)+ == 50.0
         String operatorParseString = "(((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)*,25.0)+";
         Operator parsedOperator = (Operator) StringToNodeParser.getOperatorFromString(operatorParseString);
         assertEquals(operatorParseString, parsedOperator.toString());
         assertEquals(50.0, parsedOperator.getValue());
+    }
+
+    @Test
+    void NewParserTest() throws Exception {
+        //[1, 2, +, 3, 4, *, -, 5, 6, 7, ^, ^, 8, *, +, 9, -]
+        // -(9, +( *( 8,(^(^(7,6),5)-(*(4,3),+(1,2)
+        // (1,2)+ --> (3,4)* --> - --> ((1,2)+,(3,4)*)- -->
+        String parsingString ="1+2-3*4+5^7*8-9";
+        String parsingString2 = "1+2-3*4+5^6^7*8-9";
+        String parsingString3 = "(3.31 + 4)*(15.5547 - 6)";
+
+        parsingString = TermParser.parse(parsingString);
+        parsingString2 = TermParser.parse(parsingString2);
+        parsingString3 = TermParser.parse(parsingString3);
+
+        assertEquals("((((1,2)+,(3,4)*)-,((5,7)^,8)*)+,9)-", parsingString);
+        assertEquals("((((1,2)+,(3,4)*)-,((5,(6,7)^)^,8)*)+,9)-", parsingString2);
+        assertEquals("((3.31,4)+,(15.5547,6)-)*", parsingString3);
     }
 }
