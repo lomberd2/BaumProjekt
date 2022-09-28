@@ -112,10 +112,10 @@ public class TermParser {
         return stackToString(outputStack);
     }
 
+    /**
+     * Parse RPN to String with Braces
+     */
     private static String stackToString(List<String> charArr) {
-        /**
-         * Parse RPN to String with Braces
-         */
         Stack<StringNode> nodeStack = new Stack<>();
         for (int i = 0; i < charArr.size(); i++) {
 
