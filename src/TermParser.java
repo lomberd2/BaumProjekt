@@ -17,6 +17,8 @@ public class TermParser {
 
         //Change , to .
         infixNotation = infixNotation.replace(",", ".");
+        //Remove spaces
+        infixNotation = infixNotation.replace(" ", "");
 
         for (int i = 0; i < infixNotation.length(); i++) {
             char currentChar = infixNotation.charAt(i);
@@ -31,7 +33,64 @@ public class TermParser {
                 if (i != 0) {
                     //Check für doppelte operatoren
                     if (checkIsOperator(lastChar) && checkIsOperator(currentChar)) {
-                        throw new Exception("Es wurden 2 operatoren hinter einander gefunden. Illegal");
+                        //Ignore if both chars are minus operators else throw error
+                        if (lastChar != '-' && currentChar != '-') {
+                            throw new Exception("Es wurden 2 operatoren hinter einander gefunden. Illegal");
+                        }
+                    }
+                }
+
+                //Check für Minus Zahlen
+                if (currentChar == '-' && ( lastChar == '(' || checkIsOperator(lastChar))) {
+                    char nextChar = ' ';
+                    if (infixNotation.length() > i + 1) {
+                         nextChar = infixNotation.charAt(i + 1);
+                    }
+
+                    if (nextChar != ' ' && checkIsOperator(nextChar)) {
+                        if (nextChar != '-') {
+                            throw new Exception("Es wurde ein Minus vor einem Operator gefunden. Illegal");
+                        } else {
+                            while (!operatorsStack.empty()
+                                    && checkIsOperator(operatorsStack.peek())
+                                    && checkIsLinksAssoziativ(currentChar)
+                                    && getPraezedenz(currentChar) <= getPraezedenz(operatorsStack.peek())) {
+                                outputStack.add(String.valueOf(operatorsStack.pop()));
+                            }
+                            operatorsStack.push(currentChar);
+                            lastChar = currentChar;
+                            continue;
+                        }
+                    }
+                    else if (operatorsStack.peek() == '(' || operatorsStack.empty() || checkIsOperator(operatorsStack.peek())) {
+                        if (nextChar != ' ' && checkIsNumber(nextChar)) {
+                            //Zahl auf Stack
+                            StringBuilder number = new StringBuilder();
+                            number.append(currentChar);
+                            int j = i + 1;
+                            while (j < infixNotation.length() && (checkIsNumber(infixNotation.charAt(j)) || infixNotation.charAt(j) == '.')) {
+                                number.append(infixNotation.charAt(j));
+                                j++;
+                            }
+                            outputStack.add(number.toString());
+                            i = j - 1;
+                            lastChar = infixNotation.charAt(i);
+                            continue;
+                        }
+                    }
+                    //Test wenn Minus Zahl
+                    else if (nextChar != ' ' && checkIsNumber(nextChar)) {
+                        int j = i + 1;
+                        StringBuilder number = new StringBuilder(String.valueOf(currentChar));
+                        while (j >= 0 && j < infixNotation.length() && (checkIsNumber(infixNotation.charAt(j)) || infixNotation.charAt(j) == '.')) {
+                            currentChar = infixNotation.charAt(j);
+                            number.append(currentChar);
+                            j++;
+                        }
+                        outputStack.add(number.toString());
+                        i = j - 1;
+                        lastChar = currentChar;
+                        continue;
                     }
                 }
 
