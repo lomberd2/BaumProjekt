@@ -343,7 +343,9 @@ public class StringToNodeParser {
         int nodeStringEndIndex = nodeString.indexOf(")");
         String leftNodeString = nodeString.substring(1, nodeStringKommaIndex);
         String rightNodeString = nodeString.substring(nodeStringKommaIndex + 1, nodeStringEndIndex);
-        Operators nodeOperator = getOperatorsFromString(nodeString.substring(nodeString.length()-1));
+        String nodeOperatorString = nodeString.substring(nodeString.length()-1);
+
+
         Node leftNode = null, rightNode = null;
         Operator returnOperator = null;
 
@@ -377,7 +379,7 @@ public class StringToNodeParser {
 
         try {
             if (leftNode != null && rightNode != null)
-                returnOperator = new Operator(leftNode, rightNode, nodeOperator);
+                returnOperator = getOperatorsFromString(nodeOperatorString, leftNode, rightNode);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -385,13 +387,13 @@ public class StringToNodeParser {
         return returnOperator;
     }
 
-    public static Operators getOperatorsFromString(String operator) throws ExecutionControl.NotImplementedException {
+    public static Operator getOperatorsFromString(String operator, Node leftNode, Node rightNode) throws ExecutionControl.NotImplementedException {
         return switch (operator) {
-            case "+" -> Operators.ADD;
-            case "-" -> Operators.SUBTRACT;
-            case "^" -> Operators.POWER;
-            case "*" -> Operators.MULTIPLY;
-            case "/" -> Operators.DIVIDE;
+            case "+" -> new Add(leftNode, rightNode);
+            case "-" -> new Subtract(leftNode, rightNode);
+            case "^" -> new Power(leftNode, rightNode);
+            case "*" -> new Multiply(leftNode, rightNode);
+            case "/" -> new Divide(leftNode, rightNode);
             default -> throw new ExecutionControl.NotImplementedException("Operator not implemented");
         };
     }

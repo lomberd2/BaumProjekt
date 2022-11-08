@@ -1,97 +1,40 @@
-enum Operators {
-    ADD {
-        @Override
-        double getValue(Node leftNode, Node rightNode) {
-            return leftNode.getValue() + rightNode.getValue();
-        }
-        @Override
-        public String toString() {
-            return "+";
-        }
-    },
-    SUBTRACT {
-        @Override
-        double getValue(Node leftNode, Node rightNode) {
-            return leftNode.getValue() - rightNode.getValue();
-        }
-        @Override
-        public String toString() {
-            return "-";
-        }
-    },
-    MULTIPLY {
-        @Override
-        double getValue(Node leftNode, Node rightNode) {
-            return leftNode.getValue() * rightNode.getValue();
-        }
-        @Override
-        public String toString() {
-            return "*";
-        }
-    },
-    DIVIDE {
-        @Override
-        double getValue(Node leftNode, Node rightNode) {
-            return leftNode.getValue() / rightNode.getValue();
-        }
-        @Override
-        public String toString() {
-            return "/";
-        }
-    },
-    POWER {
-        @Override
-        double getValue(Node leftNode, Node rightNode) {
-            return Math.pow(leftNode.getValue(), rightNode.getValue());
-        }
-        @Override
-        public String toString() {
-            return "^";
-        }
-    };
 
-    abstract double getValue(Node leftNode, Node rightNode);
-    public abstract String toString();
-}
+public abstract class Operator implements Node {
+    protected final Node leftNode;
+    protected final Node rightNode;
 
-public class Operator implements Node {
-    private final Node leftNode;
-    private final Node rightNode;
-    private final Operators operator;
-
-    Operator(Node leftNode, Node rightNode, Operators operator) {
+    Operator(Node leftNode, Node rightNode) {
         this.leftNode = leftNode;
         this.rightNode = rightNode;
-        this.operator = operator;
     }
 
-    Operator(double leftValue, Node rightNode, Operators operator) {
-        this(new Value(leftValue), rightNode, operator);
+    Operator(double leftValue, Node rightNode) {
+        this(new Value(leftValue), rightNode);
     }
 
-    Operator(double leftValue, double rightValue, Operators operator) {
-        this(new Value(leftValue), new Value(rightValue), operator);
+    Operator(double leftValue, double rightValue) {
+        this(new Value(leftValue), new Value(rightValue));
     }
 
-    Operator(Node leftNode, double rightValue, Operators operator) {
-        this(leftNode, new Value(rightValue), operator);
+    Operator(Node leftNode, double rightValue) {
+        this(leftNode, new Value(rightValue));
     }
 
+    public abstract String getOperator();
 
-    @Override
+    /*@Override
     public double getValue() {
        return this.operator.getValue(this.leftNode, this.rightNode);
-    }
+    }*/
 
-    @Override
-    public String toString() {
+    protected String toString(String operatorString) {
         StringBuilder outputString = new StringBuilder();
         outputString.append("(");
         outputString.append(leftNode.toString());
         outputString.append(",");
         outputString.append(rightNode.toString());
         outputString.append(")");
-        outputString.append(this.operator.toString());
+        outputString.append(operatorString);
         return outputString.toString();
     }
 }

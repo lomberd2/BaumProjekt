@@ -13,59 +13,59 @@ public class TestOperator {
 
     @Test
     void TestAdditionOperator() {
-        double addition = new Operator(10, 10, Operators.ADD).getValue();
+        double addition = new Add(10, 10).getValue();
         assertEquals(20.0, addition);
     }
 
     @Test
     void TestDivisionOperator() {
-        double division = new Operator(10, 1, Operators.DIVIDE).getValue();
+        double division = new Divide(10, 1).getValue();
         assertEquals(10.0, division);
     }
 
     @Test
     void TestMultiplicationOperator() {
-        double multiplicationResult = new Operator(25, 5, Operators.MULTIPLY).getValue();
+        double multiplicationResult = new Multiply(25, 5).getValue();
         assertEquals(125.0, multiplicationResult);
     }
 
     @Test
     void TestSubtractionOperator() {
-        double subtractionResult = new Operator(100, 25, Operators.SUBTRACT).getValue();
+        double subtractionResult = new Subtract(100, 25).getValue();
         assertEquals(75.0, subtractionResult);
     }
 
     @Test
     void TestPowerOperator() {
-        double powerResult = new Operator(10, 5, Operators.POWER).getValue();
+        double powerResult = new Power(10, 5).getValue();
         assertEquals(100000.0, powerResult);
     }
 
     @Test
     void TestNestedOperators() {
         //Operator1 = Equals 250.0
-        Operator operator1 = new Operator(25, 10, Operators.MULTIPLY);
+        Operator operator1 = new Multiply(25, 10);
         //Operator2 = Equals 0.1 ==> Operator(5, 50, Divide)
-        Operator operator2 = new Operator(new Operator(10, 5, Operators.SUBTRACT), new Operator(40, 10, Operators.ADD), Operators.DIVIDE);
+        Operator operator2 = new Divide(new Subtract(10, 5), new Add(40, 10));
         //Operator1(250) * Operator2(0.1) = 25
-        double nestedOperatorsResult = new Operator(operator1, operator2, Operators.MULTIPLY).getValue();
+        double nestedOperatorsResult = new Multiply(operator1, operator2).getValue();
         assertEquals(25.0, nestedOperatorsResult);
     }
 
     @Test
     void TestToString() {
-        String powerResult = new Operator(10, 5, Operators.POWER).toString();
+        String powerResult = new Power(10, 5).toString();
         assertEquals("(10.0,5.0)^", powerResult);
     }
 
     @Test
     void TestToStringNested() {
         //Operator1 (25.0,10.0)*
-        Operator operator1 = new Operator(25, 10, Operators.MULTIPLY);
+        Operator operator1 = new Multiply(25, 10);
         //Operator2 = Equals 0.1 ==> Operator(5, 50, Divide) == ((10.0,5.0)/,(40.0,10.0)+)/
-        Operator operator2 = new Operator(new Operator(10, 5, Operators.SUBTRACT), new Operator(40, 10, Operators.ADD), Operators.DIVIDE);
+        Operator operator2 = new Divide(new Subtract(10, 5), new Add(40, 10));
         //Operator1(250) * Operator2(0.1) = (Operator1, Operator2)*
-        String nestedOperatorsResult = new Operator(operator1, operator2, Operators.MULTIPLY).toString();
+        String nestedOperatorsResult = new Multiply(operator1, operator2).toString();
         assertEquals("((25.0,10.0)*,((10.0,5.0)-,(40.0,10.0)+)/)*", nestedOperatorsResult);
     }
 
@@ -121,4 +121,13 @@ public class TestOperator {
         System.out.println(parsedNode.toString());
         System.out.println(parsedNode.getValue());
     }
+
+    @Test
+    void LucasTest() throws Exception {
+        String parsingString = "3 * (1 + 2)";
+        Node parsedNode = TermParser.parse(parsingString);
+        System.out.println(parsedNode.toString());
+        System.out.println(parsedNode.getValue());
+    }
+
 }
