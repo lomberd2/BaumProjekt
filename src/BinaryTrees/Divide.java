@@ -1,29 +1,31 @@
-public class Multiply extends Operator {
+package BinaryTrees;
 
-    public Multiply(Node leftNode, Node rightNode) {
+public class Divide extends Operator {
+
+    public Divide(Node leftNode, Node rightNode) {
         super(leftNode, rightNode);
     }
 
-    public Multiply(double leftValue, double rightValue) {
+    public Divide(double leftValue, double rightValue) {
         super(leftValue, rightValue);
     }
 
-    public Multiply(double leftValue, Node rightNode) {
+    public Divide(double leftValue, Node rightNode) {
         super(leftValue, rightNode);
     }
 
-    public Multiply(Node leftNode, double rightValue) {
+    public Divide(Node leftNode, double rightValue) {
         super(leftNode, rightValue);
     }
 
     @Override
     public double getValue() {
-        return this.leftNode.getValue() * this.rightNode.getValue();
+        return this.leftNode.getValue() / this.rightNode.getValue();
     }
 
     @Override
     public String getOperator() {
-        return "*";
+        return "/";
     }
 
     @Override

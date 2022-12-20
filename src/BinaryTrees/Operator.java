@@ -1,3 +1,4 @@
+package BinaryTrees;
 
 public abstract class Operator implements Node {
     protected final Node leftNode;
@@ -42,18 +43,18 @@ public abstract class Operator implements Node {
 /**
  * ▼▼▼ Alternative Möglichkeit ▼▼▼
  */
-/*public abstract class Operator implements Node {
-    protected Node leftNode;
-    protected Node rightNode;
+/*public abstract class BinaryTrees.Operator implements BinaryTrees.Node {
+    protected BinaryTrees.Node leftNode;
+    protected BinaryTrees.Node rightNode;
 
-    Operator(Node leftNode, Node rightNode) {
+    BinaryTrees.Operator(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         this.leftNode = leftNode;
         this.rightNode = rightNode;
     }
 }
 
-class Add extends Operator {
-    Add(Node leftNode, Node rightNode) {
+class BinaryTrees.Add extends BinaryTrees.Operator {
+    BinaryTrees.Add(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         super(leftNode, rightNode);
     }
 
@@ -63,8 +64,8 @@ class Add extends Operator {
     }
 }
 
-class Subtract extends Operator {
-    Subtract(Node leftNode, Node rightNode) {
+class BinaryTrees.Subtract extends BinaryTrees.Operator {
+    BinaryTrees.Subtract(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         super(leftNode, rightNode);
     }
     @Override
@@ -73,8 +74,8 @@ class Subtract extends Operator {
     }
 }
 
-class Multiply extends Operator {
-    Multiply(Node leftNode, Node rightNode) {
+class BinaryTrees.Multiply extends BinaryTrees.Operator {
+    BinaryTrees.Multiply(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         super(leftNode, rightNode);
     }
     @Override
@@ -83,8 +84,8 @@ class Multiply extends Operator {
     }
 }
 
-class Divide extends Operator {
-    Divide(Node leftNode, Node rightNode) {
+class BinaryTrees.Divide extends BinaryTrees.Operator {
+    BinaryTrees.Divide(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         super(leftNode, rightNode);
     }
     @Override
@@ -93,8 +94,8 @@ class Divide extends Operator {
     }
 }
 
-class Power extends Operator {
-    Power(Node leftNode, Node rightNode) {
+class BinaryTrees.Power extends BinaryTrees.Operator {
+    BinaryTrees.Power(BinaryTrees.Node leftNode, BinaryTrees.Node rightNode) {
         super(leftNode, rightNode);
     }
     @Override

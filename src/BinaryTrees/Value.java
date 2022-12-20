@@ -1,3 +1,5 @@
+package BinaryTrees;
+
 public class Value implements Node{
     private double value;
 

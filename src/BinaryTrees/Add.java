@@ -1,3 +1,5 @@
+package BinaryTrees;
+
 public class Add extends Operator {
     public Add(Node leftNode, Node rightNode) {
         super(leftNode, rightNode);

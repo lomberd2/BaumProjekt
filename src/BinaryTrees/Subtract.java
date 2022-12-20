@@ -1,3 +1,5 @@
+package BinaryTrees;
+
 public class Subtract extends Operator {
 
     public Subtract(Node leftNode, Node rightNode) {

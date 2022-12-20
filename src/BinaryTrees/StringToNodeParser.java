@@ -1,3 +1,5 @@
+package BinaryTrees;
+
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.*;
@@ -72,7 +74,7 @@ public class StringToNodeParser {
                         try {
                             double firstDouble = Double.parseDouble(firstValue);
                             double seconodDouble = Double.parseDouble(secondValue);
-                            objNodeMap.put(firstObjString, new Operator(firstDouble, seconodDouble, operator));
+                            objNodeMap.put(firstObjString, new BinaryTrees.Operator(firstDouble, seconodDouble, operator));
                         } catch (Exception e) {}
                     }
                 }
@@ -85,7 +87,7 @@ public class StringToNodeParser {
                     try {
                         double firstDouble = Double.parseDouble(firstValue);
                         double seconodDouble = Double.parseDouble(secondValue);
-                        objNodeMap.put(firstObjString, new Operator(firstDouble, seconodDouble, operator));
+                        objNodeMap.put(firstObjString, new BinaryTrees.Operator(firstDouble, seconodDouble, operator));
                     } catch (Exception e) {}
                 }
 
@@ -97,7 +99,7 @@ public class StringToNodeParser {
                     String sVal1 = splittetString.substring(1, splittetString.indexOf(","));
                     String sVal2 = splittetString.substring(splittetString.indexOf(",")+1, splittetString.indexOf(")"));
                     Operators operator_ = getOperatorFromString(splittetString.substring(splittetString.length()-1, splittetString.length()));
-                    Operator opera = new Operator(Double.parseDouble(sVal1), Double.parseDouble(sVal2), operator_);
+                    BinaryTrees.Operator opera = new BinaryTrees.Operator(Double.parseDouble(sVal1), Double.parseDouble(sVal2), operator_);
                     stringNodeMap.put(splittetString, opera);
                 } catch (Exception e) {
                     System.err.println(e);
@@ -110,7 +112,7 @@ public class StringToNodeParser {
         String rootNodeLeftString = rootNodeString.substring(1, rootNodeString.indexOf(","));
         String rootNodeRightString = rootNodeString.substring(rootNodeString.indexOf(",")-1, rootNodeString.indexOf(")"));
         Operators rootNodeOperator = getOperatorFromString( rootNodeString.substring(rootNodeString.length()-1, rootNodeString.length()));
-        Node rootNodeLeft, rootNodeRight;
+        BinaryTrees.Node rootNodeLeft, rootNodeRight;
 
         if (rootNodeLeftString.contains("OBJ")) {
             rootNodeLeft = objNodeMap.get(rootNodeLeftString);
@@ -125,7 +127,7 @@ public class StringToNodeParser {
         for (int x = splittetInput.length - 1; x > -1; x--) {
             System.out.println(splittetInput[x]);
             if (x == splittetInput.length - 1) {
-                System.out.println("Root Node Above");
+                System.out.println("Root BinaryTrees.Node Above");
 
             } else
             if (splittetInput[x].contains("OBJ")) {
@@ -140,8 +142,8 @@ public class StringToNodeParser {
                     objSecString = splittetInput[x].substring(OBJSecond, OBJSecondEnd);
                 }
 
-                Node leftNode = objNodeMap.get(objString);
-                Node rightNode = null;
+                BinaryTrees.Node leftNode = objNodeMap.get(objString);
+                BinaryTrees.Node rightNode = null;
 
                 //System.out.println("Inserted: " + objNodeMap.get(objString));
                 if (!objSecString.isEmpty()) {
@@ -153,14 +155,14 @@ public class StringToNodeParser {
 
                 if (leftNode != null) {
                     if (rightNode != null) {
-                        tree.add(new Operator(leftNode, rightNode, operator));
+                        tree.add(new BinaryTrees.Operator(leftNode, rightNode, operator));
                     } else {
                         int ads = splittetInput[x].indexOf(",");
                         int adend = splittetInput[x].indexOf(")");
                         String val = splittetInput[x].substring(ads + 1, adend);
                         try {
-                            rightNode = new Value(Double.parseDouble(val));
-                            tree.add(new Operator(leftNode, rightNode, operator));
+                            rightNode = new BinaryTrees.Value(Double.parseDouble(val));
+                            tree.add(new BinaryTrees.Operator(leftNode, rightNode, operator));
                         } catch (Exception e) {
                             System.err.println(e);
                         }
@@ -172,7 +174,7 @@ public class StringToNodeParser {
                         String leftVal = split.substring(1, split.indexOf(","));
                         String rightVal = split.substring(split.indexOf(",") + 1, split.indexOf(")"));
                         Operators operator_ = getOperatorFromString(split.substring(split.length() - 1, split.length()));
-                        tree.add(new Operator(Double.parseDouble(leftVal), Double.parseDouble(rightVal), operator_));
+                        tree.add(new BinaryTrees.Operator(Double.parseDouble(leftVal), Double.parseDouble(rightVal), operator_));
                     } catch (Exception e) {
                         System.err.println(e);
                     }
@@ -183,14 +185,14 @@ public class StringToNodeParser {
                     String leftVal = split.substring(1, split.indexOf(","));
                     String rightVal = split.substring(split.indexOf(",") + 1, split.indexOf(")"));
                     Operators operator_ = getOperatorFromString(split.substring(split.length() - 1, split.length()));
-                    tree.add(new Operator(Double.parseDouble(leftVal), Double.parseDouble(rightVal), operator_));
+                    tree.add(new BinaryTrees.Operator(Double.parseDouble(leftVal), Double.parseDouble(rightVal), operator_));
                 } catch (Exception e) {
                     System.err.println(e);
                 }
             }
         }
 
-        Node root = null;
+        BinaryTrees.Node root = null;
 
         for (int j = 0; j < splittetInput.length; j++) {
             String curString = splittetInput[j];
@@ -198,9 +200,9 @@ public class StringToNodeParser {
             String curStringRightNode = curString.substring(curString.indexOf(",") + 1, curString.indexOf(")"));
             Operators curStringOperator = getOperatorFromString(curString.substring(curString.length()-1, curString.length()));
 
-            Node leftNode = null, rightNode = null;
+            BinaryTrees.Node leftNode = null, rightNode = null;
 
-            //Left Node
+            //Left BinaryTrees.Node
             if (curStringLeftNode.contains("OBJ")) {
                 //LeftNodeString is OBJ
                 leftNode = objNodeMap.get(curStringLeftNode);
@@ -209,31 +211,31 @@ public class StringToNodeParser {
             } else {
                 //LeftNode is not OBJ
                 try {
-                    leftNode = new Value(Double.parseDouble(curStringLeftNode));
+                    leftNode = new BinaryTrees.Value(Double.parseDouble(curStringLeftNode));
                     System.out.println("NOTHING LEFT NODE: " + curStringLeftNode);
                 } catch (Exception e) {}
             }
 
-            //Right Node
+            //Right BinaryTrees.Node
             if (curStringRightNode.contains("OBJ")) {
                 //LeftNodeString is OBJ
                 String reverseString = reverseMerkMap.get(curStringRightNode);
                 if (reverseString.contains("OBJ")) {
-                    Node leftNode_, rightNode_;
+                    BinaryTrees.Node leftNode_, rightNode_;
                     String leftNodeStr_ = reverseString.substring(1, reverseString.indexOf(",")), rightNodeStr_ = reverseString.substring(reverseString.indexOf(",")-1, reverseString.indexOf(")"));
                     try {
                         Operators operator = getOperatorFromString(reverseString.substring(reverseString.length()-1, reverseString.length()));
                         if (leftNodeStr_.contains("OBJ")) {
                             leftNode_ = objNodeMap.get(leftNodeStr_);
                         } else {
-                            leftNode_ = new Value(Double.parseDouble(leftNodeStr_));
+                            leftNode_ = new BinaryTrees.Value(Double.parseDouble(leftNodeStr_));
                         }
                         if (rightNodeStr_.contains("OBJ")) {
                             rightNode_ = objNodeMap.get(rightNodeStr_);
                         } else {
-                            rightNode_ = new Value(Double.parseDouble(rightNodeStr_));
+                            rightNode_ = new BinaryTrees.Value(Double.parseDouble(rightNodeStr_));
                         }
-                        rightNode = new Operator(leftNode_, rightNode_, operator);
+                        rightNode = new BinaryTrees.Operator(leftNode_, rightNode_, operator);
                     } catch (Exception e) {
 
                     }
@@ -246,15 +248,15 @@ public class StringToNodeParser {
             } else {
                 //LeftNode is not OBJ
                 try {
-                    rightNode = new Value(Double.parseDouble(curStringRightNode));
+                    rightNode = new BinaryTrees.Value(Double.parseDouble(curStringRightNode));
                     System.out.println("NOTHING RIGHT NODE: " + curStringRightNode);
                 } catch (Exception e) {}
             }
 
             if (j == splittetInput.length - 1) {
-                System.out.println("Root Node (Last)");
+                System.out.println("Root BinaryTrees.Node (Last)");
                 if (leftNode != null && rightNode != null) {
-                    root = new Operator(leftNode, rightNode, curStringOperator);
+                    root = new BinaryTrees.Operator(leftNode, rightNode, curStringOperator);
                 }
             }
         }
@@ -350,29 +352,29 @@ public class StringToNodeParser {
 
 
         if (leftNodeString.contains("OBJ")) {
-            //Left Node ist ein OBJ
+            //Left BinaryTrees.Node ist ein OBJ
             String objString = objToStringMap.get(leftNodeString);
             leftNode = getNodeFromString(objString);
         } else {
-            //Left Node ist kein OBJ
+            //Left BinaryTrees.Node ist kein OBJ
             try {
                 leftNode = new Value(Double.parseDouble(leftNodeString));
             } catch (Exception e) {
-                System.err.println("Error Trying to get Left Node:\n" + e);
+                System.err.println("Error Trying to get Left BinaryTrees.Node:\n" + e);
             }
         }
 
 
         if (rightNodeString.contains("OBJ")) {
-            //Right Node ist ein OBJ
+            //Right BinaryTrees.Node ist ein OBJ
             String objString = objToStringMap.get(rightNodeString);
             rightNode = getNodeFromString(objString);
         } else {
-            //Right Node ist kein OBJ
+            //Right BinaryTrees.Node ist kein OBJ
             try {
                 rightNode = new Value(Double.parseDouble(rightNodeString));
             } catch (Exception e) {
-                System.err.println("Error Trying to get Right Node:\n" + e);
+                System.err.println("Error Trying to get Right BinaryTrees.Node:\n" + e);
             }
         }
 
@@ -393,7 +395,7 @@ public class StringToNodeParser {
             case "^" -> new Power(leftNode, rightNode);
             case "*" -> new Multiply(leftNode, rightNode);
             case "/" -> new Divide(leftNode, rightNode);
-            default -> throw new ExecutionControl.NotImplementedException("Operator not implemented");
+            default -> throw new ExecutionControl.NotImplementedException("BinaryTrees.Operator not implemented");
         };
     }
 }

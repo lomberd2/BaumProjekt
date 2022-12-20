@@ -1,4 +1,4 @@
-import jdk.jshell.spi.ExecutionControl;
+package BinaryTrees;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class TermParser {
 
                     if (nextChar != ' ' && checkIsOperator(nextChar)) {
                         if (nextChar != '-') {
-                            throw new Exception("Es wurde ein Minus vor einem Operator gefunden. Illegal");
+                            throw new Exception("Es wurde ein Minus vor einem BinaryTrees.Operator gefunden. Illegal");
                         } else {
                             while (!operatorsStack.empty()
                                     && checkIsOperator(operatorsStack.peek())
@@ -159,7 +159,7 @@ public class TermParser {
                     }
                 }
 
-                //Current Char is Operator
+                //Current Char is BinaryTrees.Operator
                 if (checkIsOperator(currentChar)) {
                     while (!operatorsStack.empty()
                             && checkIsOperator(operatorsStack.peek())
@@ -210,7 +210,7 @@ public class TermParser {
                 continue;
             }
 
-            //Ist Operator
+            //Ist BinaryTrees.Operator
             if(checkIsOperator(curChar)) {
                 if( !nodeStack.isEmpty() && nodeStack.size() >= 2) {
                     //2 Values vorhanden
@@ -257,7 +257,7 @@ public class TermParser {
     }
 
     private static boolean checkIsLegalChar(char character) {
-        //Ist Operator
+        //Ist BinaryTrees.Operator
         if (checkIsOperator(character)) {
             return true;
         }

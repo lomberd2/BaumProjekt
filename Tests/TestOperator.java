@@ -1,3 +1,4 @@
+import BinaryTrees.*;
 import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +46,7 @@ public class TestOperator {
     void TestNestedOperators() {
         //Operator1 = Equals 250.0
         Operator operator1 = new Multiply(25, 10);
-        //Operator2 = Equals 0.1 ==> Operator(5, 50, Divide)
+        //Operator2 = Equals 0.1 ==> BinaryTrees.Operator(5, 50, BinaryTrees.Divide)
         Operator operator2 = new Divide(new Subtract(10, 5), new Add(40, 10));
         //Operator1(250) * Operator2(0.1) = 25
         double nestedOperatorsResult = new Multiply(operator1, operator2).getValue();
@@ -62,7 +63,7 @@ public class TestOperator {
     void TestToStringNested() {
         //Operator1 (25.0,10.0)*
         Operator operator1 = new Multiply(25, 10);
-        //Operator2 = Equals 0.1 ==> Operator(5, 50, Divide) == ((10.0,5.0)/,(40.0,10.0)+)/
+        //Operator2 = Equals 0.1 ==> BinaryTrees.Operator(5, 50, BinaryTrees.Divide) == ((10.0,5.0)/,(40.0,10.0)+)/
         Operator operator2 = new Divide(new Subtract(10, 5), new Add(40, 10));
         //Operator1(250) * Operator2(0.1) = (Operator1, Operator2)*
         String nestedOperatorsResult = new Multiply(operator1, operator2).toString();
