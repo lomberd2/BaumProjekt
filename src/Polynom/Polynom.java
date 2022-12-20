@@ -1,5 +1,6 @@
 package Polynom;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Polynom {
@@ -88,6 +89,47 @@ public class Polynom {
         return true;
     }
 
+    /**
+     * Returns the calculated Zeros of the polynom.
+     * The max degree of the polynom is 2.
+     * @return ArrayList<Double> all Zeroes of the polynom
+     */
+    public ArrayList<Double> calculateZeros() {
+        if (this.getDegree() > 2) {
+            throw new IllegalArgumentException("The maximum degree of the polynom is 2.");
+        }
+
+        // If the degree is 0, return an empty ArrayList
+        var zeros = new ArrayList<Double>();
+
+        switch (this.getDegree()) {
+            case 1 -> {
+                zeros.add(-this.coefficients[0] / this.coefficients[1]);
+                return zeros;
+            }
+            case 2 -> {
+                double a = this.coefficients[2];
+                double b = this.coefficients[1];
+                double c = this.coefficients[0];
+                double d = Math.pow(b, 2) - 4 * a * c;
+                if (d < 0) {
+                    return zeros;
+                }
+                zeros.add((-b + Math.sqrt(d)) / (2 * a));
+                zeros.add((-b - Math.sqrt(d)) / (2 * a));
+                return zeros;
+            }
+            default -> {
+                return zeros;
+            }
+        }
+    }
+
+
+    /**
+     * Returns the polynom as a string. Leaves out all coefficients that are 0.
+     * @return String polynom as a string
+     */
     @Override
     public String toString() {
         String result = "";
