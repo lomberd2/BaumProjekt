@@ -3,7 +3,7 @@ package Polynom;
 import java.util.Stack;
 
 public class Polynom {
-    private double[] coefficients;
+    private final double[] coefficients;
 
     /**
      * Constructor for the Polynom class.
